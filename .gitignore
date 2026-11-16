@@ -42,3 +42,7 @@ build/
 ### Maven
 log/
 target/
+
+
+### database
+muskutracker.db
