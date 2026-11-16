@@ -3,14 +3,14 @@ package com.zakaria.muskutracker.model;
 public class Exercice {
 
     private int id;
-    private int wgerId;
+    private Integer wgerId;
     private String nom;
     private String categorie;
     private String muscles;
     
 
-    public Exercice(int id, int wgerId, String nom, String categorie, String muscles){
-        this.id = id;
+    public Exercice(Integer wgerId, String nom, String categorie, String muscles){
+        id = -1;
         this.wgerId = wgerId;
         this.nom = nom;
         this.categorie = categorie;
@@ -25,7 +25,7 @@ public class Exercice {
         this.id = id;
     }
 
-    public int getWgerId() {
+    public Integer getWgerId() {
         return wgerId;
     }
 
@@ -56,6 +56,8 @@ public class Exercice {
     public void setMuscles(String muscles) {
         this.muscles = muscles;
     }
+
+
 
     @Override
     public String toString() {

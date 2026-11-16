@@ -5,6 +5,7 @@ import java.sql.*;
 public class Database {
     public static final String URL = "jdbc:sqlite:muskutracker.db";
 
+    // Méthode de connection avec la base de donnée, rend la base de donnée pour l'utiliser
     public static Connection getConnection() throws Exception{
         Connection connection = DriverManager.getConnection(URL);
 
@@ -14,9 +15,11 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return connection;
     }
 
+    // Méthode d'ignitialisation de la base de donnée
     public static void initialiser() throws Exception {
         Connection connection = getConnection();
 
