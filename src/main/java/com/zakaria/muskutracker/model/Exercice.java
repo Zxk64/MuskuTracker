@@ -7,6 +7,7 @@ public class Exercice {
     private String nom;
     private String categorie;
     private String muscles;
+    
 
     public Exercice(int id, int wgerId, String nom, String categorie, String muscles){
         this.id = id;
