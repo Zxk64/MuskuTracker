@@ -2,8 +2,11 @@ package com.zakaria.muskutracker;
 import com.zakaria.muskutracker.dao.Database;
 import com.zakaria.muskutracker.dao.ExerciceDao;
 import com.zakaria.muskutracker.dao.SeanceDao;
+import com.zakaria.muskutracker.dao.SerieDao;
 import com.zakaria.muskutracker.model.Exercice;
 import com.zakaria.muskutracker.model.Seance;
+import com.zakaria.muskutracker.model.Serie;
+import com.zakaria.muskutracker.service.EntrainementService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +17,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        testerSeanceDAO();
+        ExerciceDao ed = new ExerciceDao();
+        SerieDao serd = new SerieDao();
+        SeanceDao sead = new SeanceDao();
+        EntrainementService es = new EntrainementService(ed, sead, serd);
+        for (Serie s : es.detailSeance(1)){
+            System.out.println(s);
+        }
     }
 
     static void testerExerciceDAO(){
