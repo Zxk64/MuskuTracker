@@ -38,7 +38,7 @@ public class Database {
             commande.execute(commandeExercice);
             commande.execute(commandeSeance);
             commande.execute(commandeSerie);
-            System.out.println("Base de donnee prete !");
+            System.out.println("\nBase de donnee prete !");
         } catch (SQLException e) {
             System.out.println("Probleme avec les commandes");
             throw new RuntimeException(e);

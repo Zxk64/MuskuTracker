@@ -9,8 +9,7 @@ public class Serie {
     private int reps;
     private double chargeKg;
 
-    public Serie(int id, int seanceId, int exerciceId, int ordre, int reps, double chargeKg) {
-        this.id = id;
+    public Serie(int seanceId, int exerciceId, int ordre, int reps, double chargeKg) {
         this.seanceId = seanceId;
         this.exerciceId = exerciceId;
         this.ordre = ordre;
@@ -68,7 +67,7 @@ public class Serie {
 
     @Override
     public String toString() {
-        return "Serie{" +
+        return "\nSerie{" +
                 "id=" + id +
                 ", seanceId=" + seanceId +
                 ", exerciceId=" + exerciceId +

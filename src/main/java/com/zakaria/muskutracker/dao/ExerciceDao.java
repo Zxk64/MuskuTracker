@@ -40,11 +40,9 @@ public class ExerciceDao {
 
             // Executer la commande
             commandeStatement.executeUpdate();
-            System.out.println("Exercice ajoutee avec succes !");
+            System.out.println("\nExercice ajoutee avec succes !");
 
             //Donner l'id a l'objet.
-            int id;
-            ArrayList<Exercice> listeExercices = new ArrayList<>();
             String comm2 = "SELECT * FROM exercice WHERE wger_id = " + exo.getWgerId() + ";";
             commandeStatement = db.prepareStatement(comm2);
             ResultSet rs = commandeStatement.executeQuery();
@@ -98,7 +96,6 @@ public class ExerciceDao {
             } catch (SQLException e) {
                 System.out.println("Aucun exercice trouve");
             }
-            db.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

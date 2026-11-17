@@ -8,8 +8,7 @@ public class Seance {
     private LocalDate date;
     private String note;
 
-    public Seance(int id, LocalDate date, String note) {
-        this.id = id;
+    public Seance(LocalDate date, String note) {
         this.date = date;
         this.note = note;
     }
