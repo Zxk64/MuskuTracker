@@ -95,7 +95,7 @@ public class SeanceDao {
                     return sea;
                 }
             } catch (SQLException e) {
-                System.out.println("Aucun exercice trouve");
+                throw new RuntimeException(e);
             }
 
         } catch (Exception e) {
