@@ -4,6 +4,7 @@ import com.zakaria.muskutracker.model.Exercice;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciceDao {
 
@@ -47,8 +48,7 @@ public class ExerciceDao {
             String comm2 = "SELECT * FROM exercice WHERE wger_id = " + exo.getWgerId() + ";";
             commandeStatement = db.prepareStatement(comm2);
             ResultSet rs = commandeStatement.executeQuery();
-            id = rs.getInt("id");
-            exo.setId(id);
+            exo = lireExercice(rs);
             db.close();
         } catch (Exception e) {
             System.out.println("Erreur d'ajout");
@@ -56,10 +56,10 @@ public class ExerciceDao {
         return exo;
     }
 
-    public ArrayList<Exercice> trouverTous(){
+    public List<Exercice> trouverTous(){
 
         String comm = "SELECT * FROM exercice ORDER BY nom;";
-        ArrayList<Exercice> exos = new ArrayList<>();
+        List<Exercice> exos = new ArrayList<>();
 
         // Connexion a la base de donnees (dans le try)
         // Preparation de la commande (dans le try)
@@ -70,18 +70,9 @@ public class ExerciceDao {
             ){
 
             while (rs.next()){
-                int id = rs.getInt("id");
-                int wgerId = rs.getInt("wger_id");
-                String nom = rs.getString("nom");
-                String categorie = rs.getString("categorie");
-                String muscles = rs.getString("muscles");
-
-                Exercice nouvelExo = new Exercice(wgerId, nom, categorie, muscles);
-                nouvelExo.setId(id);
-
+                Exercice nouvelExo = lireExercice(rs);
                 exos.add(nouvelExo);
             }
-            db.close();
         } catch (Exception e) {
             System.out.println("Erreur de lecture");
         }
@@ -101,13 +92,7 @@ public class ExerciceDao {
 
             try(ResultSet rs = commandeStatement.executeQuery()){
                 if (rs.next()){
-                    exo = new Exercice( rs.getInt("wger_id"),
-                            rs.getString("nom"),
-                            rs.getString("categorie"),
-                            rs.getString("muscles")
-                    );
-                    exo.setId(id);
-                    db.close();
+                    exo = lireExercice(rs);
                     return exo;
                 }
             } catch (SQLException e) {
@@ -121,10 +106,10 @@ public class ExerciceDao {
         return null;
     }
 
-    public ArrayList<Exercice> chercherParNom(String txt){
+    public List<Exercice> chercherParNom(String txt){
 
-        String comm = "SELECT * FROM exercice WHERE nom LIKE ?;";
-        ArrayList<Exercice> exos = new ArrayList<>();
+        String comm = "SELECT * FROM exercice WHERE nom LIKE ? ;";
+        List<Exercice> exos = new ArrayList<>();
 
         try(Connection db = Database.getConnection();
             PreparedStatement commandeStatement = db.prepareStatement(comm);
@@ -135,15 +120,7 @@ public class ExerciceDao {
 
             try(ResultSet rs = commandeStatement.executeQuery()){
                 while (rs.next()){
-                    int id = rs.getInt("id");
-                    int wgerId = rs.getInt("wger_id");
-                    String nom = rs.getString("nom");
-                    String categorie = rs.getString("categorie");
-                    String muscles = rs.getString("muscles");
-
-                    Exercice nouvelExo = new Exercice(wgerId, nom, categorie, muscles);
-                    nouvelExo.setId(id);
-
+                    Exercice nouvelExo = lireExercice(rs);
                     exos.add(nouvelExo);
                 }
             } catch (Exception e) {
@@ -154,5 +131,28 @@ public class ExerciceDao {
         }
 
         return exos;
+    }
+
+    public int compter(){
+
+        String comm = "SELECT COUNT(*) FROM exercice;";
+        int resultat;
+
+        try(Connection db = Database.getConnection();
+            PreparedStatement commandeStatement = db.prepareStatement(comm)){
+
+            try(ResultSet rs = commandeStatement.executeQuery()){
+                if (rs.next()){
+                    resultat = rs.getInt("COUNT(*)");
+                    return resultat;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return -1;
     }
 }
