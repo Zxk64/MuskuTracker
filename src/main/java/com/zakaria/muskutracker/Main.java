@@ -7,6 +7,7 @@ import com.zakaria.muskutracker.model.Exercice;
 import com.zakaria.muskutracker.model.Seance;
 import com.zakaria.muskutracker.model.Serie;
 import com.zakaria.muskutracker.service.EntrainementService;
+import com.zakaria.muskutracker.ui.MenuConsole;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,9 +23,27 @@ public class Main {
         SerieDao serd = new SerieDao();
         SeanceDao sead = new SeanceDao();
         EntrainementService es = new EntrainementService(ed, sead, serd);
-        for (Serie s : es.detailSeance(1)){
-            System.out.println(s);
-        }
+        MenuConsole mc = new MenuConsole(es);
+        //mc.lancer();
+        System.out.println(lireEntier("test", 0, 10));
+    }
+
+    static private int lireEntier(String message, int min, int max){
+        Scanner scanner = new Scanner(System.in);
+        int r = min -1;
+        do {
+            try {
+                int result = Integer.parseInt(message);
+                if (r < min || r > max){
+                    message = scanner.nextLine();
+                }
+                r = result;
+            } catch (NumberFormatException e) {
+                System.out.println(" Erreur de conversion : " + e);
+                message = scanner.nextLine();
+            }
+        }while (r >= min && r <= max);
+        return r;
     }
 
     static void testerExerciceDAO(){
@@ -103,4 +123,5 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
+
 }
