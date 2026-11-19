@@ -9,6 +9,7 @@ import com.zakaria.muskutracker.model.Serie;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 public class EntrainementService {
 
@@ -79,4 +80,6 @@ public class EntrainementService {
     public List<Exercice> exercicesDisponibles(){
         return exoD.trouverTous();
     }
+
+
 }

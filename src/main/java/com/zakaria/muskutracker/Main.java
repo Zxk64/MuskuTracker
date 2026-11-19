@@ -19,32 +19,25 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ExerciceDao ed = new ExerciceDao();
-        SerieDao serd = new SerieDao();
-        SeanceDao sead = new SeanceDao();
-        EntrainementService es = new EntrainementService(ed, sead, serd);
-        MenuConsole mc = new MenuConsole(es);
-        //mc.lancer();
-        System.out.println(lireEntier("test", 0, 10));
+        try{
+            Database db = new Database();
+            db.initialiser();
+
+            ExerciceDao exodao = new ExerciceDao();
+            SeanceDao seadao = new SeanceDao();
+            SerieDao serdao = new SerieDao();
+
+            EntrainementService es = new EntrainementService(exodao, seadao, serdao);
+
+            MenuConsole mc = new MenuConsole(es);
+
+            mc.lancer();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    static private int lireEntier(String message, int min, int max){
-        Scanner scanner = new Scanner(System.in);
-        int r = min -1;
-        do {
-            try {
-                int result = Integer.parseInt(message);
-                if (r < min || r > max){
-                    message = scanner.nextLine();
-                }
-                r = result;
-            } catch (NumberFormatException e) {
-                System.out.println(" Erreur de conversion : " + e);
-                message = scanner.nextLine();
-            }
-        }while (r >= min && r <= max);
-        return r;
-    }
 
     static void testerExerciceDAO(){
         try {
